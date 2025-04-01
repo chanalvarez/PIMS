@@ -243,6 +243,10 @@ $categories = mysqli_query($conn, "SELECT * FROM categories ORDER BY name");
                                     <label for="description" class="form-label">Description</label>
                                     <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                                 </div>
+                                <div class="col-12">
+                                    <label for="specifications" class="form-label">Specifications</label>
+                                    <textarea class="form-control" id="specifications" name="specifications" rows="3" placeholder="Enter phone specifications (e.g., Screen size, RAM, Storage, etc.)"></textarea>
+                                </div>
                             </div>
 
                             <div class="mt-4">
