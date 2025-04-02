@@ -228,20 +228,25 @@ $total_value = mysqli_query($conn, "SELECT SUM(price * quantity) as total FROM p
 
         /* Light mode styles */
         :root[data-theme="light"] .list-group-item {
-            background-color: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            color: var(--text-primary);
+            background-color: rgba(14, 165, 233, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         :root[data-theme="light"] .list-group-item:hover {
-            background-color: #f8fafc;
+            background-color: rgba(2, 132, 199, 0.95);
             transform: translateX(5px);
-            border-color: rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
-        :root[data-theme="light"] .list-group-item i,
-        :root[data-theme="light"] .list-group-item span {
-            color: var(--text-primary) !important;
+        /* Low stock alert text color */
+        .list-group-item i,
+        .list-group-item span {
+            color: #ffffff !important;
+        }
+
+        .list-group-item:hover i,
+        .list-group-item:hover span {
+            color: #ffffff !important;
         }
 
         .section-title {
