@@ -1,0 +1,156 @@
+:root {
+    /* Dark theme variables */
+    --primary-color: #0ea5e9;
+    --secondary-color: #0284c7;
+    --accent-color: #38bdf8;
+    --background-color: #0f172a;
+    --card-background: #1e293b;
+    --text-primary: #ffffff;
+    --text-secondary: #e2e8f0;
+    --success-color: #22c55e;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --navbar-background: #1e293b;
+    --navbar-text: #ffffff;
+}
+
+:root[data-theme="light"] {
+    --primary-color: #0ea5e9;
+    --secondary-color: #0284c7;
+    --accent-color: #38bdf8;
+    --background-color: #f1f5f9;
+    --card-background: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --success-color: #22c55e;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --navbar-background: linear-gradient(to right, #0ea5e9, #0284c7);
+    --navbar-text: #ffffff;
+}
+
+body {
+    background: var(--background-color);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+.navbar {
+    background: var(--navbar-background) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand,
+.nav-link,
+.navbar .theme-toggle {
+    color: var(--navbar-text) !important;
+    transition: opacity 0.2s ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .theme-toggle:hover {
+    opacity: 0.8;
+    color: var(--navbar-text) !important;
+}
+
+.navbar .nav-link.active {
+    color: var(--navbar-text) !important;
+    font-weight: 600;
+}
+
+.navbar .theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    color: var(--navbar-text) !important;
+}
+
+.navbar .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.card {
+    background: var(--card-background);
+    color: var(--text-primary);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.table {
+    color: var(--text-primary);
+}
+
+.table thead th {
+    background-color: var(--card-background);
+    color: var(--text-secondary);
+}
+
+.table tbody tr {
+    background-color: var(--background-color);
+}
+
+.table tbody tr:hover {
+    background-color: var(--card-background);
+}
+
+.form-control {
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.form-control:focus {
+    background-color: var(--background-color);
+    color: var(--text-primary);
+}
+
+.form-label {
+    color: var(--text-primary);
+}
+
+.text-muted {
+    color: var(--text-secondary) !important;
+}
+
+/* Section title styling */
+.section-title {
+    color: var(--text-primary);
+    margin-bottom: 0;
+}
+
+.section-title i {
+    margin-right: 0.5rem;
+    color: var(--text-primary);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.1);
+} 

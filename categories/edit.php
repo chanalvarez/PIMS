@@ -53,57 +53,207 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Edit Category - Inventory System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/theme.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="../index.php">
+                <i class="fas fa-mobile-alt"></i>
+                <span>Phone Inventory Management System</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../phones/index.php">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Phones</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.php">
+                            <i class="fas fa-tags"></i>
+                            <span>Categories</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../transactions/index.php">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Transactions</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="theme-toggle" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                            <span class="d-none d-md-inline">Theme</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="section-title">
+                            <i class="fas fa-edit"></i>
+                            Edit Category
+                        </h1>
+
+                        <?php if (isset($error)): ?>
+                            <div class="alert alert-danger">
+                                <?php echo $error; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if (isset($message)): ?>
+                            <div class="alert alert-success">
+                                <?php echo $message; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <form method="POST" action="">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Category Name</label>
+                                <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($category['name']); ?>" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="3"><?php echo htmlspecialchars($category['description']); ?></textarea>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    <span>Save Changes</span>
+                                </button>
+                                <a href="index.php" class="btn btn-secondary">
+                                    <i class="fas fa-times"></i>
+                                    <span>Cancel</span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #3b82f6;
-            --background-color: #f8fafc;
-            --card-background: #ffffff;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
+            --primary-color: #0ea5e9;
+            --secondary-color: #0284c7;
+            --accent-color: #38bdf8;
+            --background-color: #0f172a;
+            --card-background: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --success-color: #22c55e;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
         }
 
         body {
-            background-color: var(--background-color);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
             color: var(--text-primary);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(2, 132, 199, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(14, 165, 233, 0.15) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+            z-index: -1;
         }
 
         .navbar {
-            background-color: var(--card-background) !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background-color: rgba(30, 41, 59, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .navbar-brand {
             color: var(--primary-color) !important;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand i {
+            font-size: 1.75rem;
+            margin-right: 0.5rem;
         }
 
         .nav-link {
-            color: var(--text-primary) !important;
+            color: var(--text-secondary) !important;
             font-weight: 500;
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
         }
 
-        .nav-link:hover {
+        .nav-link i {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
             background-color: var(--background-color);
             color: var(--primary-color) !important;
+            transform: translateY(-1px);
         }
 
         .card {
             border: none;
             border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
         }
 
         .card-body {
@@ -115,6 +265,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 0.5rem;
             font-weight: 500;
             transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
         }
 
         .btn-primary {
@@ -125,23 +285,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .btn-primary:hover {
             background-color: var(--secondary-color);
             border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--text-secondary);
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--text-primary);
+            border-color: var(--text-primary);
+            color: var(--background-color);
+            transform: translateY(-2px);
         }
 
         .form-control {
-            border-radius: 0.5rem;
+            background-color: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
             padding: 0.75rem 1rem;
-            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
         }
 
         .form-control:focus {
+            background-color: rgba(15, 23, 42, 0.7);
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+            color: var(--text-primary);
+            box-shadow: 0 0 0 0.2rem rgba(14, 165, 233, 0.25);
         }
 
-        .alert {
-            border: none;
-            border-radius: 1rem;
-            padding: 1rem 1.5rem;
+        .form-label {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
         }
 
         .section-title {
@@ -149,6 +327,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .alert {
+            border: none;
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+        }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.2);
+            color: #86efac;
+        }
+
+        .container {
+            max-width: 1200px;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .card {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .text-muted {
+            color: var(--text-secondary) !important;
+        }
+
+        .invalid-feedback {
+            color: #fca5a5;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
         }
     </style>
 </head>
@@ -156,7 +388,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="../index.php">
-                <i class="fas fa-mobile-alt me-2"></i>Phone Inventory Management System
+                <i class="fas fa-mobile-alt"></i>
+                <span>PIMS</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -165,17 +398,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="../phones/index.php">
-                            <i class="fas fa-mobile-alt me-2"></i>Phones
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Phones</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="index.php">
-                            <i class="fas fa-tags me-2"></i>Categories
+                            <i class="fas fa-tags"></i>
+                            <span>Categories</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../transactions/index.php">
-                            <i class="fas fa-exchange-alt me-2"></i>Transactions
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Transactions</span>
                         </a>
                     </li>
                 </ul>
@@ -184,45 +420,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </nav>
 
     <div class="container py-5">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="section-title">
+                        <i class="fas fa-edit"></i>
+                        Edit Category
+                    </h1>
+                    <a href="index.php" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to List</span>
+                    </a>
+                </div>
+
+                <?php if ($message): ?>
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        <span><?php echo $message; ?></span>
+                    </div>
+                <?php endif; ?>
+                
+                <?php if ($error): ?>
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span><?php echo $error; ?></span>
+                    </div>
+                <?php endif; ?>
+
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="section-title">Edit Category</h2>
-
-                        <?php if ($message): ?>
-                            <div class="alert alert-success">
-                                <i class="fas fa-check-circle me-2"></i><?php echo $message; ?>
-                            </div>
-                        <?php endif; ?>
-                        
-                        <?php if ($error): ?>
-                            <div class="alert alert-danger">
-                                <i class="fas fa-exclamation-circle me-2"></i><?php echo $error; ?>
-                            </div>
-                        <?php endif; ?>
-
                         <form method="POST" class="needs-validation" novalidate>
                             <div class="mb-4">
                                 <label for="name" class="form-label">Category Name *</label>
                                 <input type="text" class="form-control" id="name" name="name" 
-                                       value="<?php echo htmlspecialchars($category['name']); ?>" required>
+                                       value="<?php echo htmlspecialchars($category['name']); ?>" required
+                                       placeholder="Enter category name">
                                 <div class="invalid-feedback">Please enter a category name.</div>
                             </div>
 
                             <div class="mb-4">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea class="form-control" id="description" name="description" 
-                                          rows="3"><?php echo htmlspecialchars($category['description']); ?></textarea>
+                                          rows="3" placeholder="Enter category description"><?php echo htmlspecialchars($category['description']); ?></textarea>
                             </div>
 
-                            <div class="d-grid gap-2">
+                            <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save me-2"></i>Update Category
+                                    <i class="fas fa-save"></i>
+                                    <span>Update Category</span>
                                 </button>
-                                <a href="index.php" class="btn btn-secondary">
-                                    <i class="fas fa-times me-2"></i>Cancel
-                                </a>
                             </div>
                         </form>
                     </div>
