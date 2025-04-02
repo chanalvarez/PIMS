@@ -55,23 +55,14 @@ $count = $result->fetch_assoc()['count'];
 
 if ($count == 0) {
     // Add sample categories
-    $categories = [
-        ['name' => 'Smartphones', 'description' => 'Mobile phones with advanced features'],
-        ['name' => 'Feature Phones', 'description' => 'Basic mobile phones'],
-        ['name' => 'Accessories', 'description' => 'Phone accessories and parts']
-    ];
+  
     
     foreach ($categories as $category) {
         mysqli_query($conn, "INSERT INTO categories (name, description) VALUES ('{$category['name']}', '{$category['description']}')");
     }
     
     // Add sample phones
-    $phones = [
-        ['brand' => 'Apple', 'model' => 'iPhone 13', 'sku' => 'IP13-128', 'price' => 999.99, 'quantity' => 10, 'category_id' => 1],
-        ['brand' => 'Samsung', 'model' => 'Galaxy S21', 'sku' => 'GS21-256', 'price' => 899.99, 'quantity' => 15, 'category_id' => 1],
-        ['brand' => 'Nokia', 'model' => '3310', 'sku' => 'NK3310', 'price' => 49.99, 'quantity' => 20, 'category_id' => 2]
-    ];
-    
+   
     foreach ($phones as $phone) {
         mysqli_query($conn, "INSERT INTO phones (brand, model, sku, price, quantity, category_id) 
                             VALUES ('{$phone['brand']}', '{$phone['model']}', '{$phone['sku']}', 
