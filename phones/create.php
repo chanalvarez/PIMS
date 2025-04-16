@@ -107,20 +107,24 @@ $categories = mysqli_query($conn, "SELECT * FROM categories ORDER BY name");
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="section-title">
-                            <i class="fas fa-plus"></i>
-                            Add New Phone
-                        </h1>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h1 class="section-title">
+                                <i class="fas fa-plus"></i>
+                                Add New Phone
+                            </h1>
+                        </div>
 
-                        <?php if (isset($error)): ?>
+                        <?php if (isset($error) && !empty($error)): ?>
                             <div class="alert alert-danger">
-                                <?php echo $error; ?>
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span><?php echo $error; ?></span>
                             </div>
                         <?php endif; ?>
 
-                        <?php if (isset($message)): ?>
+                        <?php if (isset($message) && !empty($message)): ?>
                             <div class="alert alert-success">
-                                <?php echo $message; ?>
+                                <i class="fas fa-check-circle"></i>
+                                <span><?php echo $message; ?></span>
                             </div>
                         <?php endif; ?>
 

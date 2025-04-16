@@ -121,7 +121,7 @@ $phones = mysqli_query($conn, $query);
             <div class="card-body">
                 <form method="GET" class="row g-3">
                     <div class="col-md-8">
-                        <input type="text" name="search" class="form-control" placeholder="Search by brand, model or SKU..." value="<?php echo htmlspecialchars($search); ?>">
+                        <input type="text" name="search" class="form-control" placeholder="Search by brand, model or SKU..." value="<?php echo htmlspecialchars($search); ?>" style="color: #000000; background-color: #ffffff;">
                     </div>
                     <div class="col-md-4">
                         <button type="submit" class="btn btn-primary w-100">
@@ -136,27 +136,27 @@ $phones = mysqli_query($conn, $query);
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" style="border-radius: 8px; overflow: hidden;">
                         <thead>
                             <tr>
-                                <th>Brand</th>
-                                <th>Model</th>
-                                <th>SKU</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th>Category</th>
-                                <th>Actions</th>
+                                <th style="color: #000000;">Brand</th>
+                                <th style="color: #000000;">Model</th>
+                                <th style="color: #000000;">SKU</th>
+                                <th style="color: #000000;">Price</th>
+                                <th style="color: #000000;">Stock</th>
+                                <th style="color: #000000;">Category</th>
+                                <th style="color: #000000;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($phone = mysqli_fetch_assoc($phones)): ?>
                                 <tr>
                                     <td>
-                                        <strong><?php echo htmlspecialchars($phone['brand']); ?></strong>
+                                        <strong style="color: #000000;"><?php echo htmlspecialchars($phone['brand']); ?></strong>
                                     </td>
-                                    <td><?php echo htmlspecialchars($phone['model']); ?></td>
-                                    <td><?php echo htmlspecialchars($phone['sku']); ?></td>
-                                    <td>₱<?php echo number_format($phone['price'], 2); ?></td>
+                                    <td style="color: #000000;"><?php echo htmlspecialchars($phone['model']); ?></td>
+                                    <td style="color: #000000;"><?php echo htmlspecialchars($phone['sku']); ?></td>
+                                    <td style="color: #000000;">₱<?php echo number_format($phone['price'], 2); ?></td>
                                     <td>
                                         <span class="badge bg-<?php echo $phone['quantity'] < 5 ? 'danger' : 'success'; ?>">
                                             <?php echo $phone['quantity']; ?> units
@@ -166,18 +166,18 @@ $phones = mysqli_query($conn, $query);
                                         <?php if (!empty($phone['category_name'])): ?>
                                             <span class="badge bg-info"><?php echo htmlspecialchars($phone['category_name']); ?></span>
                                         <?php else: ?>
-                                            <span class="text-muted">No category</span>
+                                            <span style="color: #000000;">No category</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <div class="d-flex gap-2">
-                                            <a href="view.php?id=<?php echo $phone['id']; ?>" class="btn btn-sm btn-primary">
+                                        <div class="d-flex gap-1">
+                                            <a href="view.php?id=<?php echo $phone['id']; ?>" class="btn btn-sm btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="edit.php?id=<?php echo $phone['id']; ?>" class="btn btn-sm btn-warning">
+                                            <a href="edit.php?id=<?php echo $phone['id']; ?>" class="btn btn-sm btn-warning" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="?delete=<?php echo $phone['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this phone?')">
+                                            <a href="?delete=<?php echo $phone['id']; ?>" class="btn btn-sm btn-danger" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="return confirm('Are you sure you want to delete this phone?')">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </div>

@@ -116,14 +116,14 @@ $categories = mysqli_query($conn, "
             </a>
         </div>
 
-        <?php if (isset($error)): ?>
+        <?php if (isset($error) && !empty($error)): ?>
             <div class="alert alert-danger">
                 <i class="fas fa-exclamation-circle"></i>
                 <span><?php echo $error; ?></span>
             </div>
         <?php endif; ?>
 
-        <?php if (isset($message)): ?>
+        <?php if (isset($message) && !empty($message)): ?>
             <div class="alert alert-success">
                 <i class="fas fa-check-circle"></i>
                 <span><?php echo $message; ?></span>
@@ -133,36 +133,32 @@ $categories = mysqli_query($conn, "
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" style="border-radius: 8px; overflow: hidden;">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Phones Count</th>
-                                <th>Actions</th>
+                                <th style="color: #000000;">Name</th>
+                                <th style="color: #000000;">Description</th>
+                                <th style="color: #000000;">Phones Count</th>
+                                <th style="color: #000000;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($category = mysqli_fetch_assoc($categories)): ?>
                                 <tr>
-                                    <td>
+                                    <td style="color: #000000;">
                                         <strong><?php echo htmlspecialchars($category['name']); ?></strong>
                                     </td>
-                                    <td><?php echo htmlspecialchars($category['description']); ?></td>
+                                    <td style="color: #000000;"><?php echo htmlspecialchars($category['description']); ?></td>
+                                    <td style="color: #000000;"><?php echo $category['phone_count']; ?> phones</td>
                                     <td>
-                                        <span class="badge bg-info">
-                                            <?php echo $category['phone_count']; ?> phones
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex gap-2">
-                                            <a href="view.php?id=<?php echo $category['id']; ?>" class="btn btn-sm btn-primary">
+                                        <div class="d-flex gap-1">
+                                            <a href="view.php?id=<?php echo $category['id']; ?>" class="btn btn-sm btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="edit.php?id=<?php echo $category['id']; ?>" class="btn btn-sm btn-warning">
+                                            <a href="edit.php?id=<?php echo $category['id']; ?>" class="btn btn-sm btn-warning" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="?delete=<?php echo $category['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this category?')">
+                                            <a href="?delete=<?php echo $category['id']; ?>" class="btn btn-sm btn-danger" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="return confirm('Are you sure you want to delete this category?')">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </div>
@@ -179,4 +175,4 @@ $categories = mysqli_query($conn, "
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/theme.js"></script>
 </body>
-</html> 
+</html>

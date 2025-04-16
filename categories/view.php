@@ -136,37 +136,37 @@ $next_id = mysqli_query($conn, $next_query)->fetch_assoc()['id'] ?? null;
                                 No phones found in this category.
                             </div>
                         <?php else: ?>
-                            <div class="table-responsive">
+                            <div class="table-responsive mt-4">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Brand</th>
-                                            <th>Model</th>
-                                            <th>SKU</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Actions</th>
+                                            <th style="color: #000000;">Brand</th>
+                                            <th style="color: #000000;">Model</th>
+                                            <th style="color: #000000;">SKU</th>
+                                            <th style="color: #000000;">Price</th>
+                                            <th style="color: #000000;">Stock</th>
+                                            <th style="color: #000000;">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($phones as $phone): ?>
+                                        <?php while ($phone = mysqli_fetch_assoc($phones)): ?>
                                             <tr>
-                                                <td><?php echo htmlspecialchars($phone['brand']); ?></td>
-                                                <td><?php echo htmlspecialchars($phone['model']); ?></td>
-                                                <td><?php echo htmlspecialchars($phone['sku']); ?></td>
-                                                <td>$<?php echo number_format($phone['price'], 2); ?></td>
+                                                <td style="color: #000000;"><strong><?php echo htmlspecialchars($phone['brand']); ?></strong></td>
+                                                <td style="color: #000000;"><?php echo htmlspecialchars($phone['model']); ?></td>
+                                                <td style="color: #000000;"><?php echo htmlspecialchars($phone['sku']); ?></td>
+                                                <td style="color: #000000;">₱<?php echo number_format($phone['price'], 2); ?></td>
                                                 <td>
-                                                    <span class="badge <?php echo $phone['quantity'] > 0 ? 'bg-success' : 'bg-danger'; ?>">
-                                                        <?php echo $phone['quantity']; ?>
+                                                    <span class="badge bg-<?php echo $phone['quantity'] < 5 ? 'danger' : 'success'; ?>">
+                                                        <?php echo $phone['quantity']; ?> units
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <a href="../phones/view.php?id=<?php echo $phone['id']; ?>" class="btn btn-sm btn-info">
+                                                    <a href="../phones/view.php?id=<?php echo $phone['id']; ?>" class="btn btn-sm btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 </td>
                                             </tr>
-                                        <?php endforeach; ?>
+                                        <?php endwhile; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -198,4 +198,4 @@ $next_id = mysqli_query($conn, $next_query)->fetch_assoc()['id'] ?? null;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/theme.js"></script>
 </body>
-</html> 
+</html>

@@ -172,29 +172,30 @@ $transactions = mysqli_query($conn, $transactions_query);
                                 No transactions found for this phone.
                             </div>
                         <?php else: ?>
-                            <div class="table-responsive">
+                            <div class="table-responsive mt-4">
+                                
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Date</th>
-                                            <th>Type</th>
-                                            <th>Quantity</th>
-                                            <th>Notes</th>
+                                            <th style="color: #000000;">Date</th>
+                                            <th style="color: #000000;">Type</th>
+                                            <th style="color: #000000;">Quantity</th>
+                                            <th style="color: #000000;">Notes</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($transactions as $transaction): ?>
+                                        <?php while ($transaction = mysqli_fetch_assoc($transactions)): ?>
                                             <tr>
-                                                <td><?php echo date('F j, Y g:i A', strtotime($transaction['created_at'])); ?></td>
+                                                <td style="color: #000000;"><?php echo date('M d, Y', strtotime($transaction['transaction_date'])); ?></td>
                                                 <td>
-                                                    <span class="badge <?php echo $transaction['type'] === 'in' ? 'bg-success' : 'bg-danger'; ?>">
-                                                        <?php echo ucfirst($transaction['type']); ?>
+                                                    <span class="badge bg-<?php echo $transaction['type'] == 'in' ? 'success' : 'warning'; ?>">
+                                                        <?php echo $transaction['type'] == 'in' ? 'Stock In' : 'Stock Out'; ?>
                                                     </span>
                                                 </td>
-                                                <td><?php echo $transaction['quantity']; ?></td>
-                                                <td><?php echo htmlspecialchars($transaction['notes']); ?></td>
+                                                <td style="color: #000000;"><?php echo $transaction['quantity']; ?> units</td>
+                                                <td style="color: #000000;"><?php echo htmlspecialchars($transaction['notes']); ?></td>
                                             </tr>
-                                        <?php endforeach; ?>
+                                        <?php endwhile; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -208,4 +209,4 @@ $transactions = mysqli_query($conn, $transactions_query);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/theme.js"></script>
 </body>
-</html> 
+</html>

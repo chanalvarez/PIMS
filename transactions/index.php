@@ -115,56 +115,45 @@ $transactions = mysqli_query($conn, "
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" style="border-radius: 8px; overflow: hidden;">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Date</th>
-                                <th>Phone</th>
-                                <th>Type</th>
-                                <th>Quantity</th>
-                                <th>Notes</th>
-                                <th>Actions</th>
+                                <th style="color: #000000;">ID</th>
+                                <th style="color: #000000;">Date</th>
+                                <th style="color: #000000;">Phone</th>
+                                <th style="color: #000000;">Type</th>
+                                <th style="color: #000000;">Quantity</th>
+                                <th style="color: #000000;">Notes</th>
+                                <th style="color: #000000;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($transaction = mysqli_fetch_assoc($transactions)): ?>
                                 <tr>
-                                    <td>#<?php echo $transaction['id']; ?></td>
-                                    <td><?php echo date('F j, Y g:i A', strtotime($transaction['transaction_date'])); ?></td>
-                                    <td>
-                                        <strong><?php echo htmlspecialchars($transaction['brand']); ?></strong>
-                                        <br>
-                                        <small class="text-muted"><?php echo htmlspecialchars($transaction['model']); ?></small>
+                                    <td style="color: #000000;"><?php echo $transaction['id']; ?></td>
+                                    <td style="color: #000000;"><?php echo date('M d, Y', strtotime($transaction['transaction_date'])); ?></td>
+                                    <td style="color: #000000;">
+                                        <?php echo htmlspecialchars($transaction['brand'] . ' ' . $transaction['model']); ?>
                                     </td>
                                     <td>
-                                        <span class="badge <?php echo $transaction['type'] === 'in' ? 'bg-success' : 'bg-danger'; ?>">
-                                            <?php echo ucfirst($transaction['type']); ?>
+                                        <span class="badge bg-<?php echo $transaction['type'] == 'in' ? 'success' : 'warning'; ?>">
+                                            <?php echo $transaction['type'] == 'in' ? 'Stock In' : 'Stock Out'; ?>
                                         </span>
                                     </td>
-                                    <td>
-                                        <strong><?php echo $transaction['quantity']; ?></strong>
-                                        <span class="text-muted">units</span>
-                                    </td>
-                                    <td><?php echo htmlspecialchars($transaction['notes']); ?></td>
+                                    <td style="color: #000000;"><?php echo $transaction['quantity']; ?> units</td>
+                                    <td style="color: #000000;"><?php echo htmlspecialchars($transaction['notes']); ?></td>
                                     <td>
                                         <div class="d-flex gap-1">
-                                            <a href="view.php?id=<?php echo $transaction['id']; ?>" class="btn btn-sm btn-primary">
+                                            <a href="view.php?id=<?php echo $transaction['id']; ?>" class="btn btn-sm btn-primary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
                                                 <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="?delete=<?php echo $transaction['id']; ?>" class="btn btn-sm btn-danger" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="return confirm('Are you sure you want to delete this transaction?')">
+                                                <i class="fas fa-trash"></i>
                                             </a>
                                         </div>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
-                            
-                            <?php if (mysqli_num_rows($transactions) == 0): ?>
-                                <tr>
-                                    <td colspan="7" class="text-center py-4">
-                                        <i class="fas fa-inbox fa-2x mb-3 d-block text-muted"></i>
-                                        <p class="text-muted">No transactions found</p>
-                                    </td>
-                                </tr>
-                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -189,4 +178,4 @@ $transactions = mysqli_query($conn, "
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/theme.js"></script>
 </body>
-</html> 
+</html>
