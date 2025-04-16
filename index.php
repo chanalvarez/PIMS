@@ -135,9 +135,9 @@ $total_value = mysqli_query($conn, "SELECT SUM(price * quantity) as total FROM p
                         if (mysqli_num_rows($low_stock_phones) > 0): ?>
                             <div class="list-group">
                                 <?php while ($phone = mysqli_fetch_assoc($low_stock_phones)): ?>
-                                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="list-group-item d-flex justify-content-between align-items-center" style="background-color: #0ea5e9; color: white; border-color: #0284c7;">
                                         <span><?php echo htmlspecialchars($phone['brand'] . ' ' . $phone['model']); ?></span>
-                                        <span class="badge bg-<?php echo $phone['quantity'] < 3 ? 'danger' : 'warning'; ?>">
+                                        <span class="badge bg-<?php echo $phone['quantity'] < 5 ? 'danger' : 'light text-dark'; ?>">
                                             <?php echo $phone['quantity']; ?> units
                                         </span>
                                     </div>

@@ -136,8 +136,8 @@ $transactions = mysqli_query($conn, "
                                         <?php echo htmlspecialchars($transaction['brand'] . ' ' . $transaction['model']); ?>
                                     </td>
                                     <td>
-                                        <span class="badge bg-<?php echo $transaction['type'] == 'in' ? 'success' : 'warning'; ?>">
-                                            <?php echo $transaction['type'] == 'in' ? 'Stock In' : 'Stock Out'; ?>
+                                        <span class="badge bg-<?php echo $transaction['type'] == 'in' ? 'success' : 'danger'; ?>">
+                                            <?php echo $transaction['type'] == 'in' ? 'In Stock' : 'Stock Out'; ?>
                                         </span>
                                     </td>
                                     <td style="color: #000000;"><?php echo $transaction['quantity']; ?> units</td>

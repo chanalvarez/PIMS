@@ -102,23 +102,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="section-title">
-                            <i class="fas fa-edit"></i>
-                            Edit Category
-                        </h1>
-
-                        <?php if (isset($error)): ?>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h1 class="section-title">
+                                <i class="fas fa-edit"></i>
+                                Edit Category
+                            </h1>
+                        </div>
+                        
+                        <?php if (isset($error) && !empty($error)): ?>
                             <div class="alert alert-danger">
-                                <?php echo $error; ?>
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span><?php echo $error; ?></span>
                             </div>
                         <?php endif; ?>
-
-                        <?php if (isset($message)): ?>
+                        
+                        <?php if (isset($message) && !empty($message)): ?>
                             <div class="alert alert-success">
-                                <?php echo $message; ?>
+                                <i class="fas fa-check-circle"></i>
+                                <span><?php echo $message; ?></span>
                             </div>
                         <?php endif; ?>
-
+                        
                         <form method="POST" action="">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Category Name</label>

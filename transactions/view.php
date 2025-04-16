@@ -104,7 +104,7 @@ $next_id = mysqli_query($conn, $next_query)->fetch_assoc()['id'] ?? null;
                             <label class="form-label">Type</label>
                             <p class="form-control-static">
                                 <span class="badge <?php echo $transaction['transaction_type'] === 'in' ? 'bg-success' : 'bg-danger'; ?>">
-                                    <?php echo ucfirst($transaction['transaction_type']); ?>
+                                    <?php echo $transaction['transaction_type'] === 'in' ? 'In Stock' : 'Stock Out'; ?>
                                 </span>
                             </p>
                         </div>
@@ -154,12 +154,12 @@ $next_id = mysqli_query($conn, $next_query)->fetch_assoc()['id'] ?? null;
 
                         <div class="mb-3">
                             <label class="form-label">Price</label>
-                            <p class="form-control-static">$<?php echo number_format($transaction['price'], 2); ?></p>
+                            <p class="form-control-static">₱<?php echo number_format($transaction['price'], 2); ?></p>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Transaction Value</label>
-                            <p class="form-control-static">$<?php echo number_format($transaction['price'] * $transaction['quantity'], 2); ?></p>
+                            <p class="form-control-static">₱<?php echo number_format($transaction['price'] * $transaction['quantity'], 2); ?></p>
                         </div>
                     </div>
                 </div>
@@ -170,4 +170,4 @@ $next_id = mysqli_query($conn, $next_query)->fetch_assoc()['id'] ?? null;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/theme.js"></script>
 </body>
-</html> 
+</html>
