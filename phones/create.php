@@ -5,28 +5,36 @@ $message = '';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Validate input
     $brand = mysqli_real_escape_string($conn, $_POST['brand']);
     $model = mysqli_real_escape_string($conn, $_POST['model']);
     $sku = mysqli_real_escape_string($conn, $_POST['sku']);
-    $price = (float)$_POST['price'];
-    $quantity = (int)$_POST['quantity'];
+    $price = mysqli_real_escape_string($conn, $_POST['price']);
+    $quantity = mysqli_real_escape_string($conn, $_POST['quantity']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $specifications = isset($_POST['specifications']) ? mysqli_real_escape_string($conn, $_POST['specifications']) : '';
-
+    $category_id = !empty($_POST['category_id']) ? mysqli_real_escape_string($conn, $_POST['category_id']) : "NULL";
+    
     // Check if SKU already exists
     $check_sku = mysqli_query($conn, "SELECT id FROM phones WHERE sku = '$sku'");
     if (mysqli_num_rows($check_sku) > 0) {
         $error = "SKU already exists!";
     } else {
-        // Insert new phone
+        // Clean up the query - only one INSERT statement with category_id included
         $query = "INSERT INTO phones (brand, model, sku, price, quantity, description, specifications) 
                   VALUES ('$brand', '$model', '$sku', $price, $quantity, '$description', '$specifications')";
         
         if (mysqli_query($conn, $query)) {
             $message = "Phone added successfully!";
-            // Record the transaction
+            // Get the new phone ID
             $phone_id = mysqli_insert_id($conn);
+            
+            // Save the category relationship in the junction table
+            if (!empty($_POST['category_id'])) {
+                $category_id = mysqli_real_escape_string($conn, $_POST['category_id']);
+                mysqli_query($conn, "INSERT INTO phone_categories (phone_id, category_id) VALUES ($phone_id, $category_id)");
+            }
+            
+            // Record the transaction
             mysqli_query($conn, "INSERT INTO inventory_transactions (phone_id, transaction_type, quantity, notes) 
                                VALUES ($phone_id, 'in', $quantity, 'Initial stock')");
             
@@ -132,15 +140,17 @@ $categories = mysqli_query($conn, "SELECT * FROM categories ORDER BY name");
                                 <input type="text" class="form-control" id="sku" name="sku" required>
                             </div>
 
+                            <!-- In your form, make sure you have a select field for categories -->
                             <div class="mb-3">
                                 <label for="category_id" class="form-label">Category</label>
-                                <select class="form-select" id="category_id" name="category_id" required>
-                                    <option value="">Select a category</option>
-                                    <?php while ($category = mysqli_fetch_assoc($categories)): ?>
-                                        <option value="<?php echo $category['id']; ?>">
-                                            <?php echo htmlspecialchars($category['name']); ?>
-                                        </option>
-                                    <?php endwhile; ?>
+                                <select name="category_id" id="category_id" class="form-select">
+                                    <option value="">-- Select Category --</option>
+                                    <?php
+                                    $categories = mysqli_query($conn, "SELECT * FROM categories ORDER BY name");
+                                    while ($category = mysqli_fetch_assoc($categories)) {
+                                        echo '<option value="' . $category['id'] . '">' . htmlspecialchars($category['name']) . '</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
 
@@ -182,4 +192,4 @@ $categories = mysqli_query($conn, "SELECT * FROM categories ORDER BY name");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/theme.js"></script>
 </body>
-</html> 
+</html>

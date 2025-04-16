@@ -14,13 +14,43 @@ $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $per_page = 10;
 $offset = ($page - 1) * $per_page;
 
+// Let's modify the where clause to work with the join
 $search = isset($_GET['search']) ? mysqli_real_escape_string($conn, $_GET['search']) : '';
-$where_clause = $search ? "WHERE brand LIKE '%$search%' OR model LIKE '%$search%' OR sku LIKE '%$search%'" : "";
+$where_clause = $search ? "WHERE p.brand LIKE '%$search%' OR p.model LIKE '%$search%' OR p.sku LIKE '%$search%'" : "";
 
-$total_records = mysqli_query($conn, "SELECT COUNT(*) as total FROM phones $where_clause")->fetch_assoc()['total'];
+// Let's debug the query to see what's happening
+$query = "
+    SELECT p.*, c.name as category_name 
+    FROM phones p 
+    LEFT JOIN categories c ON p.category_id = c.id 
+    $where_clause
+    ORDER BY p.brand, p.model
+    LIMIT $offset, $per_page
+";
+
+// Execute the query
+$phones = mysqli_query($conn, $query);
+
+// Let's also add a debug statement to check if we're getting category data
+if (!$phones) {
+    echo "Query error: " . mysqli_error($conn);
+}
+$total_records = mysqli_query($conn, "SELECT COUNT(*) as total FROM phones p $where_clause")->fetch_assoc()['total'];
 $total_pages = ceil($total_records / $per_page);
 
-$phones = mysqli_query($conn, "SELECT * FROM phones $where_clause ORDER BY brand, model LIMIT $offset, $per_page");
+// Get phones with category information
+$query = "
+    SELECT p.*, c.name as category_name 
+    FROM phones p 
+    LEFT JOIN phone_categories pc ON p.id = pc.phone_id
+    LEFT JOIN categories c ON pc.category_id = c.id
+    $where_clause
+    ORDER BY p.brand, p.model
+    LIMIT $offset, $per_page
+";
+
+// Execute the query
+$phones = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
@@ -114,7 +144,7 @@ $phones = mysqli_query($conn, "SELECT * FROM phones $where_clause ORDER BY brand
                                 <th>SKU</th>
                                 <th>Price</th>
                                 <th>Stock</th>
-                                <th>Categories</th>
+                                <th>Category</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -133,20 +163,11 @@ $phones = mysqli_query($conn, "SELECT * FROM phones $where_clause ORDER BY brand
                                         </span>
                                     </td>
                                     <td>
-                                        <?php
-                                        $categories_query = "SELECT c.name 
-                                                          FROM categories c 
-                                                          JOIN phone_categories pc ON c.id = pc.category_id 
-                                                          WHERE pc.phone_id = {$phone['id']}";
-                                        $categories = mysqli_query($conn, $categories_query);
-                                        if (mysqli_num_rows($categories) > 0) {
-                                            while ($category = mysqli_fetch_assoc($categories)) {
-                                                echo '<span class="badge bg-info me-1">' . htmlspecialchars($category['name']) . '</span>';
-                                            }
-                                        } else {
-                                            echo '<span class="text-muted">No categories</span>';
-                                        }
-                                        ?>
+                                        <?php if (!empty($phone['category_name'])): ?>
+                                            <span class="badge bg-info"><?php echo htmlspecialchars($phone['category_name']); ?></span>
+                                        <?php else: ?>
+                                            <span class="text-muted">No category</span>
+                                        <?php endif; ?>
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2">
@@ -187,4 +208,4 @@ $phones = mysqli_query($conn, "SELECT * FROM phones $where_clause ORDER BY brand
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/theme.js"></script>
 </body>
-</html> 
+</html>

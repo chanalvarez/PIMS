@@ -11,6 +11,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 
 $id = mysqli_real_escape_string($conn, $_GET['id']);
 
+// In your edit.php file, make sure the update query includes category_id
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate input
     $brand = mysqli_real_escape_string($conn, $_POST['brand']);
@@ -234,4 +235,4 @@ while ($cat = mysqli_fetch_assoc($phone_categories)) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/theme.js"></script>
 </body>
-</html> 
+</html>
