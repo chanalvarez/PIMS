@@ -46,7 +46,7 @@ $next_id = mysqli_query($conn, $next_query)->fetch_assoc()['id'] ?? null;
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="../index.php">
-                <i class="fas fa-mobile-alt"></i>
+                <img src="../assets/img/pims.png" alt="Logo" width="40" height="40" class="me-2">
                 <span>Phone Inventory Management System</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

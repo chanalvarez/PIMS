@@ -60,16 +60,21 @@ body::after {
     z-index: -1;
 }
 
-/* Replace the navbar styling section */
+/* Navbar styling section */
 .navbar {
-    background-color: var(--card-background);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 0.75rem 0;
 }
 
-/* Add this for light mode navbar */
+/* Dark mode navbar with gradient */
+:root[data-theme="dark"] .navbar {
+    background: linear-gradient(to right, #0f172a, #1e293b);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Light mode navbar with blue gradient */
 :root[data-theme="light"] .navbar {
-    background-color: #0ea5e9;
+    background: linear-gradient(to right, #0284c7, #0ea5e9);
     border-bottom: 1px solid #0284c7;
 }
 

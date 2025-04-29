@@ -13,7 +13,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="../index.php">
-                <i class="fas fa-mobile-alt me-2"></i>Phone Inventory Management System
+                <img src="../assets/img/pims.png" alt="Logo" width="40" height="40" class="me-2">Phone Inventory Management System
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -52,4 +52,4 @@
         </div>
     </div>
 </body>
-</html> 
+</html>
