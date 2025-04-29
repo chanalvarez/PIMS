@@ -335,6 +335,19 @@ body::after {
     color: white;
 }
 
+/* Ensure 'No low stock items' text is visible in both light and dark modes */
+.card .text-muted {
+    color: var(--text-secondary) !important;
+}
+
+:root[data-theme="dark"] .card .text-muted {
+    color: #e2e8f0 !important;
+}
+
+:root[data-theme="light"] .card .text-muted {
+    color: #475569 !important;
+}
+
 
 
 /* Pagination */
