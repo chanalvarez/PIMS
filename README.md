@@ -16,7 +16,7 @@ A web-based inventory management system designed specifically for phone stores a
   - View phones in each category
 
 - **Inventory Transactions**
-  - Track stock in/out movements
+  - Track in/out stock movements
   - Record transaction history
   - Monitor stock levels
   - Initial stock setup
@@ -104,4 +104,4 @@ Christian Ray M. Alvarez
 
 - Bootstrap Team for the amazing CSS framework
 - Font Awesome for the beautiful icons
-- PHP and MySQL communities 
+- PHP and MySQL communities

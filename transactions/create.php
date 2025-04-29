@@ -140,7 +140,7 @@ $phones = mysqli_query($conn, "SELECT id, brand, model, sku, quantity FROM phone
                             <div class="mb-3">
                                 <label for="type" class="form-label">Transaction Type</label>
                                 <select class="form-select" id="type" name="type" required>
-                                    <option value="in">Stock In</option>
+                                    <option value="in">In Stock</option>
                                     <option value="out">Stock Out</option>
                                 </select>
                             </div>

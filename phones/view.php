@@ -189,7 +189,7 @@ $transactions = mysqli_query($conn, $transactions_query);
                                                 <td style="color: #000000;"><?php echo date('M d, Y', strtotime($transaction['transaction_date'])); ?></td>
                                                 <td>
                                                     <span class="badge bg-<?php echo $transaction['type'] == 'in' ? 'success' : 'warning'; ?>">
-                                                        <?php echo $transaction['type'] == 'in' ? 'Stock In' : 'Stock Out'; ?>
+                                                        <?php echo $transaction['type'] == 'in' ? 'In Stock' : 'Stock Out'; ?>
                                                     </span>
                                                 </td>
                                                 <td style="color: #000000;"><?php echo $transaction['quantity']; ?> units</td>
