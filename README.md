@@ -92,9 +92,6 @@ A web-based inventory management system designed specifically for phone stores a
 
 Feel free to fork this project and submit pull requests. You can also open issues for bugs or feature requests.
 
-## License
-
-This project is open-source and available under the [MIT License](LICENSE).
 
 ## Author
 
