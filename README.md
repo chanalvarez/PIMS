@@ -25,6 +25,7 @@ A web-based inventory management system designed specifically for phone stores a
   - Clean and responsive design
   - User-friendly interface
   - Bootstrap-based styling
+  - Light and Dark Themes
   - Mobile-friendly layout
 
 ## Technologies Used
