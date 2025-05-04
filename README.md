@@ -50,12 +50,11 @@ A web-based inventory management system designed specifically for phone stores a
    git clone https://github.com/chanalvarez/PIMS.git
    ```
 
-2. Create a MySQL database named 'phone_inventory' or 'pims' or however you like.
+2. Create a MySQL database named 'pims' or however you like.
 
-3. Import the database structure:
-   - Navigate to your project in the browser
+3. No need to import sql file, just run the auto setup and update db script in browser:
    - Run the setup script: `http://localhost/PIMS/setup_database.php`
-   - After running the setup script, run the update script for the updated database: 'http://localhost/PIMS/update_database.php'
+   - After running the setup script, run the update script for the updated database: `http://localhost/PIMS/update_database.php`
 
 4. Configure the database connection:
    - Edit `config/database.php` with your database credentials
@@ -63,7 +62,7 @@ A web-based inventory management system designed specifically for phone stores a
      - Host: localhost
      - Username: root
      - Password: (empty)
-     - Database: phone_inventory
+     - Database: pims
 
 5. Access the system through your web browser:
    ```
@@ -93,9 +92,6 @@ A web-based inventory management system designed specifically for phone stores a
 Feel free to fork this project and submit pull requests. You can also open issues for bugs or feature requests.
 
 
-## Author
-
-Christian Ray M. Alvarez
 
 ## Acknowledgments
 
